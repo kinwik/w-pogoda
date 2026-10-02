@@ -19,7 +19,8 @@ import { WeatherMetricsGrid } from './components/WeatherMetricsGrid';
 import { PetersburgAtmosphereCard } from './components/PetersburgAtmosphereCard';
 import { MobileBottomNav } from './components/MobileBottomNav';
 import { AppStoreModal } from './components/AppStoreModal';
-import { Smartphone, Monitor } from 'lucide-react';
+import { GitHubModal } from './components/GitHubModal';
+import { Smartphone, Monitor, Github } from 'lucide-react';
 
 export default function App() {
   const [location, setLocation] = useState<LocationInfo>(SPB_LOCATIONS[0]);
@@ -31,6 +32,7 @@ export default function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const [isPhoneFrameActive, setIsPhoneFrameActive] = useState<boolean>(false);
   const [isAppStoreModalOpen, setIsAppStoreModalOpen] = useState<boolean>(false);
+  const [isGitHubModalOpen, setIsGitHubModalOpen] = useState<boolean>(false);
   const [units, setUnits] = useState<UserUnits>({
     temp: 'C',
     wind: 'ms',
@@ -177,6 +179,7 @@ export default function App() {
           isPhoneFrameActive={isPhoneFrameActive}
           onTogglePhoneFrame={() => setIsPhoneFrameActive(!isPhoneFrameActive)}
           onOpenAppStoreModal={() => setIsAppStoreModalOpen(true)}
+          onOpenGitHubModal={() => setIsGitHubModalOpen(true)}
         />
 
         {/* Main Content Workspace */}
@@ -232,15 +235,23 @@ export default function App() {
               <span>Санкт-Петербург</span>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3 flex-wrap justify-center sm:justify-end">
+              <button
+                onClick={() => setIsGitHubModalOpen(true)}
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-900 border border-slate-700 text-slate-300 hover:text-white hover:border-slate-500 transition-colors text-[11px] font-mono"
+              >
+                <Github className="w-3.5 h-3.5" />
+                <span>Сайт на GitHub</span>
+              </button>
+
               <button
                 onClick={() => setIsAppStoreModalOpen(true)}
                 className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-900 border border-cyan-500/30 text-cyan-300 hover:text-white hover:border-cyan-400 transition-colors text-[11px] font-mono"
               >
-                <span>🍏 Загрузить в App Store</span>
+                <span>🍏 App Store</span>
               </button>
 
-              <div className="hidden sm:flex items-center gap-2 text-[11px] font-mono text-slate-500">
+              <div className="hidden md:flex items-center gap-2 text-[11px] font-mono text-slate-500">
                 <span>ECMWF & DWD ICON</span>
                 <span aria-hidden="true">·</span>
                 <span>760 мм рт. ст.</span>
@@ -249,6 +260,12 @@ export default function App() {
           </div>
         </footer>
       </div>
+
+      {/* GitHub Pages Deployment Guide Modal */}
+      <GitHubModal
+        isOpen={isGitHubModalOpen}
+        onClose={() => setIsGitHubModalOpen(false)}
+      />
 
       {/* App Store Export & Packaging Modal */}
       <AppStoreModal

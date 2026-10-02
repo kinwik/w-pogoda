@@ -11,6 +11,7 @@ import {
   ChevronUp,
   MapPin,
   Check,
+  Github,
 } from 'lucide-react';
 import { UserUnits, LocationInfo } from '../types/weather';
 import { ALL_KNOWN_LOCATIONS } from '../utils/mockData';
@@ -32,6 +33,7 @@ interface NavbarProps {
   isPhoneFrameActive?: boolean;
   onTogglePhoneFrame?: () => void;
   onOpenAppStoreModal?: () => void;
+  onOpenGitHubModal?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -51,6 +53,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   isPhoneFrameActive,
   onTogglePhoneFrame,
   onOpenAppStoreModal,
+  onOpenGitHubModal,
 }) => {
   const handleNavClick = (sectionId: string) => {
     onSelectSection(sectionId);
@@ -195,6 +198,17 @@ export const Navbar: React.FC<NavbarProps> = ({
               </div>
 
               <div className="flex items-center gap-2">
+                {onOpenGitHubModal && (
+                  <button
+                    onClick={onOpenGitHubModal}
+                    title="Инструкция и запуск сайта на GitHub Pages"
+                    className="flex items-center gap-1.5 text-[11px] font-mono text-slate-300 hover:text-white bg-slate-900 px-2 py-0.5 rounded border border-slate-700 hover:border-slate-500 transition-colors"
+                  >
+                    <Github className="w-3 h-3 text-white" />
+                    <span>GitHub</span>
+                  </button>
+                )}
+
                 {onOpenAppStoreModal && (
                   <button
                     onClick={onOpenAppStoreModal}
